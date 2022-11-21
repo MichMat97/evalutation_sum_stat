@@ -1,55 +1,69 @@
+import numpy as np
+import statistics as stat
+otazka1_data = {"Áno": 0, "Nie": 0}
+otazka2_data = {"Áno": 0, "Nie": 0}
+otazka3_data = {"Áno": 0, "Nie": 0}
+otazka4_data = {"Vlajka": 0, "Kronika": 0, "Fotoalbum/Online galéria fotiek": 0,
+                "Erb/kus oblečenia/iná insígnia": 0, "Špecifický rituál/Tradícia/Pokrik": 0,
+                "Nástenka": 0}
+otazka5_data = {"Vĺčatá/včielky": 0, "Skauti/skautky": 0, "Rangeri/rangerky": 0, "Roveri/roverky": 0,
+                "Dospelí skauti a skautky": 0, "Predškoláci": 0, "Žena": 0, "Muž": 0}
+
+otazka5_data_2 = {"Vĺčatá/včielky": [], "Skauti/skautky": [], "Rangeri/rangerky": [], "Roveri/roverky": [],
+                "Dospelí skauti a skautky": [], "Predškoláci": [], "Žena": [], "Muž": []}
 def otazka1(data):
-    otazka = data.columns[-1]
-    ano = 0
-    nie = 0
-    for riadok in data.iterrows():
-        if(riadok[1][-1]=="Áno"):
-            ano += 1
-        else:
-            nie += 1
-    print(str(otazka)+"\n"+"Áno: "+str(ano)+"\nNie: "+str(nie))
+    otazka1_data[data[-1]] += 1
+    return otazka1_data
+def otazka1_print_data():
+    return "\n"+"Áno: "+str(otazka1_data["Áno"])+"\nNie: "+str(otazka1_data["Nie"])
 def otazka2(data):
-    otazka = data.columns[-1]
-    ano = 0
-    nie = 0
-    for riadok in data.iterrows():
-        if(riadok[1][-1]=="Áno"):
-            ano += 1
-        else:
-            nie += 1
-    print(str(otazka)+"\n"+"Áno: "+str(ano)+"\nNie: "+str(nie))
-    return 0
+    otazka2_data[data[-1]] += 1
+    return otazka2_data
+def otazka2_print_data():
+    return "\n"+"Áno: "+str(otazka2_data["Áno"])+"\nNie: "+str(otazka2_data["Nie"])
 def otazka3(data):
-    otazka = data.columns[-1]
-    ano = 0
-    nie = 0
-    for riadok in data.iterrows():
-        if(riadok[1][-1]=="Áno"):
-            ano += 1
-        else:
-            nie += 1
-    print(str(otazka)+"\n"+"Áno: "+str(ano)+"\nNie: "+str(nie))
-    return 0
+    otazka3_data[data[-1]] += 1
+    return otazka3_data
+def otazka3_print_data():
+    return "\n"+"Áno: "+str(otazka3_data["Áno"])+"\nNie: "+str(otazka3_data["Nie"])
 def otazka4(data):
-    otazka = data.columns[-1]
-    vlajka = 0
-    kronika = 0
-    fotoalbum = 0
-    erb = 0
-    ritual = 0
-    nastenka = 0
-    for riadok in data.iterrows():
-        if("Vlajka" in riadok[1][-1]):
-            vlajka += 1
-        if ("Kronika" in riadok[1][-1]):
-            kronika += 1
-        if ("Fotoalbum/Online galéria fotiek" in riadok[1][-1]):
-            fotoalbum += 1
-        if ("Erb/kus oblečenia/iná insígnia" in riadok[1][-1]):
-            erb += 1
-        if ("Špecifický rituál/Tradícia/Pokrik" in riadok[1][-1]):
-            ritual += 1
-        if ("Nástenka" in riadok[1][-1]):
-            nastenka += 1
-    print(str(otazka)+"\n"+"Vlajka: "+str(vlajka)+"\nKronika: "+str(kronika)+"\nFotoalbum: "+str(fotoalbum)+"\nErb: "+str(erb)+"\nRituál: "+str(ritual)+"\nNástenka: "+str(nastenka))
-    return 0
+    for odpoved in otazka4_data.keys():
+        if(odpoved in data[-1]):
+            otazka4_data[odpoved] += 1
+    return otazka4_data
+def otazka4_print_data():
+    return "\n"+"Vlajka: "+str(otazka4_data["Vlajka"])+"\nKronika: "+str(otazka4_data["Kronika"])+"\nFotoalbum: "+str(otazka4_data["Fotoalbum/Online galéria fotiek"])+"\nErb: "+str(otazka4_data["Erb/kus oblečenia/iná insígnia"])+"\nRituál: "+str(otazka4_data["Špecifický rituál/Tradícia/Pokrik"])+"\nNástenka: "+str(otazka4_data["Nástenka"])
+def otazka5(data):
+    odpoved = str.split(data[-1], "\n")
+    for i in range(0, len(odpoved)-1):
+        riadok = str.split(odpoved[i], ": ")
+        otazka5_data[riadok[0]] += int(riadok[1])
+    pohlavia = str.split(odpoved[-1], "Muž: ")
+    otazka5_data["Muž"] += int(str.split(pohlavia[1], ")")[0])
+    zeny = str.split(pohlavia[0], ": ")
+    otazka5_data["Žena"] += int(zeny[1])
+    return otazka5_data
+def otazka5_print_data():
+    print = ""
+    for i in otazka5_data.keys():
+        print+= "\n"+ i +": "+ str(otazka5_data[i])
+    return print
+def otazka5_2(data):
+    odpoved = str.split(data[-1], "\n")
+    for i in range(0, len(odpoved)-1):
+        riadok = str.split(odpoved[i], ": ")
+        otazka5_data_2[riadok[0]].append(int(riadok[1]))
+    pohlavia = str.split(odpoved[-1], "Muž: ")
+    otazka5_data_2["Muž"].append(int(str.split(pohlavia[1], ")")[0]))
+    zeny = str.split(pohlavia[0], ": ")
+    otazka5_data_2["Žena"].append(int(zeny[1]))
+    return otazka5_data_2
+def otazka5_print_data_2():
+    to_print = ""
+    for i in otazka5_data.keys():
+        to_print += "\n" + i + ": " + str(sum(otazka5_data_2[i])) + "\tmin: " + str(min(otazka5_data_2[i])) \
+                + "\tmax: " + str(max(otazka5_data_2[i])) + "\tmodus: " \
+                + str(max(set(otazka5_data_2[i]), key=otazka5_data_2[i].count)) \
+                + "\tmedian: " + str(stat.median(otazka5_data_2[i])) + "\tar. priemer: " \
+                + str(stat.mean(otazka5_data_2[i]))
+    return to_print
