@@ -1,9 +1,8 @@
 import pandas as pd
 
+import latex
 import otazky
-import otazky as o
 from datetime import datetime, date
-
 
 export_file_name = 'all2020.xlsx'
 dset = pd.ExcelFile(export_file_name)
@@ -24,12 +23,21 @@ for riadok in df.iterrows():
     # otazky.otazka2(riadok[1].loc[obal+[znenie_otazok[1]]])
     # otazky.otazka3(riadok[1].loc[obal+[znenie_otazok[2]]])
     # otazky.otazka4(riadok[1].loc[obal+[znenie_otazok[3]]])
-    # otazky.otazka5_2(riadok[1].loc[obal+[znenie_otazok[4]]])
-print(str(znenie_otazok[0])+otazky.otazka1_print_data())
-print(str(znenie_otazok[0])+otazky.otazka1_print_data_zbory())
-print(str(znenie_otazok[0])+otazky.otazka1_print_data_oblasti())
+    otazky.otazka5_2(riadok[1].loc[obal+[znenie_otazok[4]]])
+
+# print(str(znenie_otazok[0])+otazky.otazka1_print_data())
+# print(str(znenie_otazok[0])+otazky.otazka1_print_data_zbory())
+# print(str(znenie_otazok[0])+otazky.otazka1_print_data_oblasti())
+
 # print(str(znenie_otazok[1])+otazky.otazka2_print_data())
 # print(str(znenie_otazok[2])+otazky.otazka3_print_data())
 # print(str(znenie_otazok[3])+otazky.otazka4_print_data())
-# print(str(znenie_otazok[4])+otazky.otazka5_print_data_2())
+#print(str(znenie_otazok[4])+otazky.otazka5_print_data_2())
 #
+#print(len(otazky.otazka5_print_data_2_raw().keys()))
+print(len(list(otazky.otazka5_print_data_2_raw().values())[0]))
+
+latex.oneLineQuestion(znenie_otazok[0], otazky.otazka1_raw_data())
+latex.multiLineQuestion(znenie_otazok[4], otazky.otazka5_print_data_2_raw(),otazky.otazka5_print_data_2_category())
+
+latex.savePDF()

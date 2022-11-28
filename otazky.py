@@ -1,5 +1,4 @@
 import math
-
 import numpy as np
 import statistics as stat
 
@@ -29,6 +28,9 @@ def otazka1(data):
             otazka1_data_oblasti[data["Nadriadená jednotka 2"]] = 1
         else:
             otazka1_data_oblasti[data["Nadriadená jednotka 2"]] += 1
+    return otazka1_data
+
+def otazka1_raw_data():
     return otazka1_data
 def otazka1_print_data():
     return "\n" + "Áno: " + str(otazka1_data["Áno"]) + "\nNie: " + str(otazka1_data["Nie"])
@@ -115,3 +117,14 @@ def otazka5_print_data_2():
                     + "\tmedian: " + str(stat.median(otazka5_data_2[i])) + "\tar. priemer: " \
                     + str(stat.mean(otazka5_data_2[i]))
     return to_print
+
+def otazka5_print_data_2_raw():
+    data = {}
+    for i in otazka5_data.keys():
+        data[i] = [sum(otazka5_data_2[i]), min(otazka5_data_2[i]), max(otazka5_data_2[i]),
+                   max(set(otazka5_data_2[i]), key=otazka5_data_2[i].count), stat.median(otazka5_data_2[i]),
+                   stat.mean(otazka5_data_2[i])]
+    return data
+
+def otazka5_print_data_2_category():
+    return ['Súčet', 'Minimum', 'Maximum', 'Modus', 'Medián', 'Aritmetický priemer']
