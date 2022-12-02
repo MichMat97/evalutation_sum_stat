@@ -47,12 +47,11 @@ def multiLineQuestion(otazka, data):
             categ = ['Kategórie']
             for i in data.keys():
                 categ.append(i)
-            #print(categ)
             table.add_row(tuple(categ))
             table.add_hline()
-            for rowIndex in range(0, len(data.values)):
+            for rowIndex in range(len(data.values)):
                 dat = [data.index.values[rowIndex]]
-                for i in range(0, len(data.iloc[rowIndex])):
+                for i in range(len(data.iloc[rowIndex])):
                     dat.append(data.iloc[rowIndex][i])
                 table.add_row(tuple(dat))
                 table.add_hline()

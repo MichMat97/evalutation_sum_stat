@@ -21,10 +21,10 @@ znenie_otazok = ["Máte od všetkých vašich členov prihlášky?",
 
 for riadok in df.iterrows():
     otazky.otazka1(riadok[1].loc[obal+[znenie_otazok[0]]])
-    # otazky.otazka2(riadok[1].loc[obal+[znenie_otazok[1]]])
+    otazky.otazka2(riadok[1].loc[obal+[znenie_otazok[1]]])
     # otazky.otazka3(riadok[1].loc[obal+[znenie_otazok[2]]])
     # otazky.otazka4(riadok[1].loc[obal+[znenie_otazok[3]]])
-    otazky.otazka5_2(riadok[1].loc[obal+[znenie_otazok[4]]])
+    otazky.otazka5(riadok[1].loc[obal + [znenie_otazok[4]]])
 
 # print(str(znenie_otazok[0])+otazky.otazka1_print_data())
 # print(str(znenie_otazok[0])+otazky.otazka1_print_data_zbory())
@@ -34,18 +34,18 @@ for riadok in df.iterrows():
 # print(str(znenie_otazok[2])+otazky.otazka3_print_data())
 # print(str(znenie_otazok[3])+otazky.otazka4_print_data())
 #print(str(znenie_otazok[4])+otazky.otazka5_print_data_2())
-#
-#print(len(otazky.otazka5_print_data_2_raw().keys()))
-#print(len(list(otazky.otazka5_print_data_2_raw().values())[0]))
+
 
 latex.oneLineQuestion(znenie_otazok[0], otazky.otazka1_raw_data())
-latex.multiLineQuestion(znenie_otazok[4], otazky.otazka5_print_data_2_raw())
+latex.multiLineQuestion(znenie_otazok[1], otazky.otazka2_print_data_raw())
+latex.multiLineQuestion(znenie_otazok[4], otazky.otazka5_print_data_raw())
 
 np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
 #print(otazky.otazka5_print_data_2_raw().iloc[0])
 #print(otazky.otazka5_print_data_2_raw().index.values[0])
-print(otazky.otazka5_print_data_2_raw().iloc[0][0])
+#print(otazky.otazka5_print_data_raw().iloc[0][0])
 # for rowIndex in range(1, len(otazky.otazka5_print_data_2_raw().values)):
 #     #print(otazky.otazka5_print_data_2_raw().index.values[rowIndex])
 #     print(type(otazky.otazka5_print_data_2_raw().iloc[rowIndex]))
+
 latex.savePDF()
