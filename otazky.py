@@ -2,6 +2,8 @@ import math
 import numpy as np
 import statistics as stat
 
+import pandas as pd
+
 otazka1_data = {"Áno": 0, "Nie": 0}
 otazka1_data_zbory = {}
 otazka1_data_oblasti = {}
@@ -120,11 +122,10 @@ def otazka5_print_data_2():
 
 def otazka5_print_data_2_raw():
     data = {}
+    colNames = ['Súčet', 'Minimum', 'Maximum', 'Modus', 'Medián', 'Ar. priemer']
     for i in otazka5_data.keys():
         data[i] = [sum(otazka5_data_2[i]), min(otazka5_data_2[i]), max(otazka5_data_2[i]),
                    max(set(otazka5_data_2[i]), key=otazka5_data_2[i].count), stat.median(otazka5_data_2[i]),
                    stat.mean(otazka5_data_2[i])]
-    return data
-
-def otazka5_print_data_2_category():
-    return ['Súčet', 'Minimum', 'Maximum', 'Modus', 'Medián', 'Aritmetický priemer']
+    df = pd.DataFrame.from_dict(data, orient='index', columns=colNames)
+    return df

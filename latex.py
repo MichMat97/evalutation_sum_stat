@@ -5,12 +5,12 @@ from pylatex import Document, Section, Subsection, Tabular, Math, TikZ, Axis, \
 from pylatex.utils import italic
 import os
 
-geometry_options = {"tmargin": "1cm", "lmargin": "10cm"}
+#geometry_options = {"tmargin": "1cm", "lmargin": "10cm"}
     #doc = Document(geometry_options=geometry_options)
 doc = Document('basic')
 doc.documentclass = Command(
     'documentclass',
-    options=['12pt'],
+    options=['10pt'],
     arguments=['article'],
 )
 
@@ -33,10 +33,10 @@ def oneLineQuestion(otazka, data):
         return doc
 
 
-def multiLineQuestion(otazka, data, categories):
+def multiLineQuestion(otazka, data):
 
     with doc.create(Section(otazka)):
-        columns = len(list(data.values())[0])+1
+        columns = len(data.keys())+1
         align = '|l'
         for x in range(columns-1):
             align += '|c'
@@ -45,14 +45,15 @@ def multiLineQuestion(otazka, data, categories):
             table.add_hline()
             #table.add_row((MultiColumn(size=columns, align='|c|', data=otazka),), strict=True)
             categ = ['Kategórie']
-            for i in categories:
+            for i in data.keys():
                 categ.append(i)
+            #print(categ)
             table.add_row(tuple(categ))
             table.add_hline()
-            for row in data.keys():
-                dat = [row]
-                for i in range(len(data[row])):
-                    dat.append(data[row][i])
+            for rowIndex in range(0, len(data.values)):
+                dat = [data.index.values[rowIndex]]
+                for i in range(0, len(data.iloc[rowIndex])):
+                    dat.append(data.iloc[rowIndex][i])
                 table.add_row(tuple(dat))
                 table.add_hline()
         return doc

@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 import latex
@@ -35,9 +36,16 @@ for riadok in df.iterrows():
 #print(str(znenie_otazok[4])+otazky.otazka5_print_data_2())
 #
 #print(len(otazky.otazka5_print_data_2_raw().keys()))
-print(len(list(otazky.otazka5_print_data_2_raw().values())[0]))
+#print(len(list(otazky.otazka5_print_data_2_raw().values())[0]))
 
 latex.oneLineQuestion(znenie_otazok[0], otazky.otazka1_raw_data())
-latex.multiLineQuestion(znenie_otazok[4], otazky.otazka5_print_data_2_raw(),otazky.otazka5_print_data_2_category())
+latex.multiLineQuestion(znenie_otazok[4], otazky.otazka5_print_data_2_raw())
 
+np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
+#print(otazky.otazka5_print_data_2_raw().iloc[0])
+#print(otazky.otazka5_print_data_2_raw().index.values[0])
+print(otazky.otazka5_print_data_2_raw().iloc[0][0])
+# for rowIndex in range(1, len(otazky.otazka5_print_data_2_raw().values)):
+#     #print(otazky.otazka5_print_data_2_raw().index.values[rowIndex])
+#     print(type(otazky.otazka5_print_data_2_raw().iloc[rowIndex]))
 latex.savePDF()
